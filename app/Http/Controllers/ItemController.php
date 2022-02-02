@@ -9,26 +9,88 @@ use App\Models\Item;
 class ItemController extends Controller
 {
     /**
-     * アイテム登録
+     * アイテム登録画面
      *
      * @param Request $request
      * @return Response
      */
+   
+   public function create()
+   {
+      return view('item.create');
+   }
 
-    public function create(Request $request)
-     {
-        return view('item/create');
-     }
+   /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+   public function store(Request $request)
+   {
+      //アイテム登録
+      $item=new Item;
+      $item->user_id=1;
+      $item->name=$request->input('name');
+      $item->amount=$request->input('amount');
+      $item->bought_at=$request->input('bought_at');
+      // $item->image_name=$request->input('image_name');
+      $item->image_name=0;
+      $item->alert=$request->input('alert');
+      $item->comment=$request->input('comment');
 
-     /**
-      * アイテム編集
-      */
-    
-    public function edit()
-     {
-    // $member=Member::find($id);
+      $item->save();
 
-    return view('item.edit');
-     }
-    
+      //アイテム登録画面にリダイレクト
+         return redirect('item.create');
+
+   }
+
+   /**
+    * アイテム編集画面
+    */
+
+   public function edit($id)
+   {
+   $item=Item::find($id);
+   return view('item.edit',compact('item'));
+   }
+
+   public function update(Request $request, $id)
+   {
+      //
+      $item=Item::find($id);
+
+      $item->user_id=1;
+      $item->name=$request->input('name');
+      $item->amount=$request->input('amount');
+      $item->bought_at=$request->input('bought_at');
+      // $item->image_name=$request->input('image_name');
+      $item->image_name=0;
+      $item->alert=$request->input('alert');
+      $item->comment=$request->input('comment');
+
+      //DBに保存
+      $item->save();
+
+      //処理が終わったらアイテム登録画面にリダイレクト
+      return redirect('item.create');
+   }
+   // public function show($id)
+   // {
+   //    //
+   //    $item=Item::find($id);
+   //    return view('item.edit',compact('item'));
+   // }
+
+   // 削除機能
+   public function destroy($id)
+   {
+      //
+      $item=Item::find($id);
+
+      $item->delete();
+      //処理が終わったら登録画面にリダイレクト
+      return redirect('item.create');
+   }
 }

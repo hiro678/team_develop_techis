@@ -29,45 +29,40 @@
 <body>
     <h3>持ち物を登録する</h3>
 
-    <form>
-        <div>
-            <label for=""class="name">名称</label>
-            <input class="form-control" type="text" placeholder="名称">
+    <form method="POST" action="{{route('item.store')}}">
+    @csrf
+        <div class="form-group">
+            <label class="name">名称</label>
+            <input name="name" id="name" class="form-control" type="text" placeholder="名称">
             <br>
         </div>
-    </form>
-    <form>
-        <div>
-            <label for=""class="name">購入量</label>
-            <input type="number" class="form-control" value="1" min="0" max="100" step="1">
+        <div class="form-group">
+            <label class="name">購入量</label>
+            <input name="amount" id="amount" type="number" class="form-control" value="1" min="0" max="100" step="1">
             <br>
         </div>
-    </form>
-    <form>
-        <div>
-            <label for=""class="name">購入日</label>
-            <input type="date" class="form-control" name="date" value="<?php echo date('Y-m-d'); ?>" >
+        <div class="form-group">
+            <label class="name">購入日</label>
+            <input name="bought_at" id="bought_at" type="date" class="form-control" name="date" value="<?php echo date('Y-m-d'); ?>" >
             <br>
         </div>
-    </form>
-    <div class="mb-3">
-        <label for=""class="name">画像</label>
-        <input class="form-control" type="file" id="formFile">
-    </div>
-    <div>
-        <label for=""class="name">アラート</label>
-        <input class="form-control" type="text" placeholder="アラート">
-        <br>
-    </div>
-    <form>
-        <div>
-            <label for=""class="name">備考</label>
-            <input class="form-control" type="text" placeholder="備考">
+        <div class="form-group">
+            <label class="name">画像</label>
+            <input name="image_name" id="image_name" class="form-control" type="file" id="formFile">
+        </div>
+        <div class="form-group">
+            <label class="name">アラート</label>
+            <input name="alert" id="alert" class="form-control" type="text" placeholder="アラート">
             <br>
         </div>
+        <div class="form-group">
+            <label class="name">備考</label>
+            <input name="comment" id="comment" class="form-control" type="text" placeholder="備考">
+            <br>
+        </div>
+        <div class="d-grid gap-2 col-2 mx-auto">
+            <input class="btn btn-primary" type="submit" value="登録">
+        </div>
     </form>
-    <div class="d-grid gap-2 col-2 mx-auto">
-        <button class="btn btn-primary" type="button">登録</button>
-    </div>
 </body>
 </html>
