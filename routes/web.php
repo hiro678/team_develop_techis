@@ -18,3 +18,7 @@ Route::get('/', function () {
 });
 Route::get('/item.create', [App\Http\Controllers\ItemController::class, 'create'])->name('item');
 Route::get('/item.edit', [App\Http\Controllers\ItemController::class, 'edit'])->name('item.edit');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
