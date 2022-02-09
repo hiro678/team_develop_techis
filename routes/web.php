@@ -22,3 +22,15 @@ Route::get('/item.edit', [App\Http\Controllers\ItemController::class, 'edit'])->
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// カテゴリー追加画面を表示
+Route::get('/category.create', [App\Http\Controllers\CategoryController::class, 'create'])->name('category');
+// カテゴリー追加
+Route::post('/category.store', [App\Http\Controllers\CategoryController::class, 'store'])->name('store');
+// カテゴリー編集画面を表示
+Route::get('/category.edit/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('category.edit');
+// カテゴリー編集
+Route::post('/category.update', [App\Http\Controllers\CategoryController::class, 'update'])->name('cayegory.update');
+// カテゴリー削除
+Route::post('/category.delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('category.delete');
+
