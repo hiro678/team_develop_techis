@@ -8,6 +8,16 @@ use App\Models\Item;
 
 class ItemController extends Controller
 {
+   /**
+    * コンストラクタ
+    *
+    * @return coid
+    */
+    public function __construct()
+    {
+       $this->middleware('auth');
+    }
+
     /**
      * アイテム登録画面
      *

@@ -21,3 +21,9 @@ Route::get('/item.edit/{id}', [App\Http\Controllers\ItemController::class, 'edit
 Route::post('/item.store', [App\Http\Controllers\ItemController::class, 'store'])->name('item.store');
 Route::post('/item.update/{id}', [App\Http\Controllers\ItemController::class, 'update'])->name('item.update');
 Route::post('/item.destroy/{id}', [App\Http\Controllers\ItemController::class, 'destroy'])->name('item.destroy');
+
+
+// Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

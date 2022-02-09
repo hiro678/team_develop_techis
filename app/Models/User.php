@@ -41,4 +41,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * ユーザーの保持する持ち物内容
+     */
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

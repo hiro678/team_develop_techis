@@ -29,7 +29,7 @@
 
 <body>
     <h3>持ち物を編集・削除する {{$item->id}}</h3>
-    <form method="POST" action="{{route('item.edit',['id'=>$item->id])}}">
+    <form method="POST" action="{{route('item.update',['id'=>$item->id])}}">
     @csrf
         <div class="form-group">
             <label class="name">名称</label>
@@ -60,14 +60,12 @@
             <input name="comment" id="comment" class="form-control" type="text" placeholder="備考" value="{{$item->comment}}">
             <br>
         </div>
-    </form>
-            <form method="POST" action="{{route('item.update',['id'=>$item->id])}}">
                 @csrf
                 <div class="d-grid gap-2 col-2 mx-auto">
                 <input class="btn btn-primary btn-lg" type="submit" value="編集">
                 </div>
                 <br>
-            </form>
+    </form>
             <form method="POST" action="{{route('item.destroy',['id'=>$item->id])}}">
                 @csrf
                 <div class="d-grid gap-2 col-2 mx-auto">
