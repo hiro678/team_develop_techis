@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +23,7 @@ Route::post('/item.store', [App\Http\Controllers\ItemController::class, 'store']
 Route::post('/item.update/{id}', [App\Http\Controllers\ItemController::class, 'update'])->name('item.update');
 Route::post('/item.destroy/{id}', [App\Http\Controllers\ItemController::class, 'destroy'])->name('item.destroy');
 
-
-// Auth::routes();
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

@@ -13,12 +13,12 @@ class ItemController extends Controller
     *
     * @return coid
     */
-    public function __construct()
-    {
-       $this->middleware('auth');
-    }
+   public function __construct()
+   {
+      $this->middleware('auth');
+   }
 
-    /**
+   /**
      * アイテム登録画面
      *
      * @param Request $request
@@ -38,7 +38,7 @@ class ItemController extends Controller
      */
    public function store(Request $request)
    {
-      //アイテム登録
+      //アイテム登録機能
       $item=new Item;
       $item->user_id=1;
       $item->name=$request->input('name');
@@ -53,22 +53,20 @@ class ItemController extends Controller
 
       //アイテム登録画面にリダイレクト
          return redirect('item.create');
-
    }
 
-   /**
-    * アイテム編集画面
-    */
-
+   
+   //アイテム編集画面
    public function edit($id)
    {
-   $item=Item::find($id);
-   return view('item.edit',compact('item'));
+      $item=Item::find($id);
+      return view('item.edit',compact('item'));
    }
 
+   //アイテム編集機能
    public function update(Request $request, $id)
    {
-      //
+      
       $item=Item::find($id);
 
       $item->user_id=1;
@@ -86,21 +84,15 @@ class ItemController extends Controller
       //処理が終わったらアイテム登録画面にリダイレクト
       return redirect('item.create');
    }
-   // public function show($id)
-   // {
-   //    //
-   //    $item=Item::find($id);
-   //    return view('item.edit',compact('item'));
-   // }
 
-   // 削除機能
+   //削除機能
    public function destroy($id)
    {
-      //
+      
       $item=Item::find($id);
 
       $item->delete();
-      //処理が終わったら登録画面にリダイレクト
+      //処理が終わったらアイテム登録画面にリダイレクト
       return redirect('item.create');
    }
 }
