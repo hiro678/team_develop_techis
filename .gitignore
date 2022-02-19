@@ -14,3 +14,6 @@ yarn-error.log
 /.idea
 /.vscode
 .DS_Store
+#検索機能が完成したらプッシュ
+SearchController.php
+Item.php
