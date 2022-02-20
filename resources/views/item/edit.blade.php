@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Document</title>
-    <style>
-    </style>
-</head>
+@extends('layouts.app')
 
-<body>
+@section('content')
 <div>
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -20,7 +9,7 @@
                     <h2>持ち物を編集・削除する</h2>
                 </div>
                     <div class="card-body">
-                        <form method="POST" action="{{route('item.update',['id'=>$item->id])}}" >
+                        <form method="POST" action="{{route('item.update',['id'=>$item->id])}}" enctype="multipart/form-data">
                             @csrf
                                 <div class="row mb-3">
                                     <label for="name" class="col-md-4 col-form-label text-md-end">
@@ -43,7 +32,8 @@
                                         <b>購入日</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="bought_at" id="bought_at" type="date" class="form-control" name="date" value="<?php echo date('Y-m-d'); ?>" >
+                                            <!-- <input name="bought_at" id="bought_at" type="yyyy/MM/dd H:mm:ss" class="form-control" name="date" value="{{$item->bought_at}}" > -->
+                                            <input type="date">
                                         </div>
                                 </div>
                                 <div class="row mb-3">
@@ -51,7 +41,10 @@
                                         <b>画像</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="image_name" id="image_name" class="form-control" type="file" id="formFile">
+                                            <input name="image_name" id="image_name" class="form-control" type="file" id="formFile" value="">
+                                        </div>
+                                        <div class="item">
+                                            <img class="d-block mx-auto" src="{{ Storage::url($item->image_name) }}" alt="" width="150px" height="150px">
                                         </div>
                                 </div>
                                 <div class="row mb-3">
@@ -59,7 +52,11 @@
                                         <b>アラート</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="alert" id="alert" class="form-control" type="text" value="{{$item->alert}}">
+                                            <!-- <input name="alert" id="alert" class="form-control" type="text" value="{{$item->alert}}"> -->
+                                            <select class="form-control" name="alert" id="alert" value="{{$item->alert}}">
+                                                <option value="0">なし</option>
+                                                <option value="1">あり</option>
+                                            </select>
                                         </div>
                                 </div>
                                 <div class="row mb-3">
@@ -73,13 +70,13 @@
                                 
                                 <div class="d-grid gap-2 col-2 mx-auto">
                                     <button class="btn btn-primary" type="submit">編集</button>
-                                    <br>
                                 </div>
                         </form>
-                        <form method="POST" action="{{route('item.destroy',['id'=>$item->id])}}">
+                        <br>
+                        <form method="POST" action="{{route('item.delete',['id'=>$item->id])}}">
                             @csrf
                             <div class="d-grid gap-2 col-2 mx-auto" id="button">
-                                <button class="btn btn-primary" type="submit">削除</button>
+                                <button class="btn btn-secondary" type="submit">削除</button>
                             </div>
                         </form>
                     </div>
@@ -87,5 +84,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+@endsection

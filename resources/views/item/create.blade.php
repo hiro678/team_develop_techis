@@ -1,16 +1,6 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>item</title>
-    <style>
-    </style>
-</head>
+@extends('layouts.app')
 
+@section('content')
 <body>
 @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -33,7 +23,7 @@
                     <h2>持ち物を登録する</h2>
                 </div>
                     <div class="card-body">
-                        <form method="POST" action="{{route('item.store')}}">
+                        <form method="POST" action="{{route('item.store')}}" enctype="multipart/form-data">
                             @csrf
                                 <div class="row mb-3">
                                     <label for="name" class="col-md-4 col-form-label text-md-end">
@@ -56,7 +46,7 @@
                                         <b>購入日</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="bought_at" id="bought_at" type="date" class="form-control" name="date" value="<?php echo date('Y-m-d'); ?>" >
+                                            <input name="bought_at" id="bought_at" DATETIME[(fsp)]="YYYY-MM-DD HH:MM:SS[.fraction]" class="form-control" name="date" value="<?php echo date('Y-m-d H:i:s'); ?>" >
                                         </div>
                                 </div>
                                 <div class="row mb-3">
@@ -72,7 +62,11 @@
                                         <b>アラート</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="alert" id="alert" class="form-control" type="text">
+                                            <!-- <input name="alert" id="alert" class="form-control" type="text"> -->
+                                            <select class="form-control" name="alert"id="alert">
+                                                <option name="alert"id="alert" value="0">なし</option>
+                                                <option name="alert" id="alert" value="1">あり</option>
+                                            </select>
                                         </div>
                                 </div>
                                 <div class="row mb-3">
@@ -93,4 +87,4 @@
     </div>
 </div>
 </body>
-</html>
+@endsection
