@@ -14,4 +14,8 @@ class Item extends Model
     public static $rules = [
         'image_name'=> 'image|file',
     ];
+
+    protected $dates = [
+        'bought_at',
+    ];
 }

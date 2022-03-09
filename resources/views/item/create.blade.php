@@ -46,7 +46,7 @@
                                         <b>購入日</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="bought_at" id="bought_at" DATETIME[(fsp)]="YYYY-MM-DD HH:MM:SS[.fraction]" class="form-control" name="date" value="<?php echo date('Y-m-d H:i:s'); ?>" >
+                                        <input name="bought_at" id="bought_at" class="form-control" type="date" value="<?php echo date('Y-m-d');?>" >
                                         </div>
                                 </div>
                                 <div class="row mb-3">
@@ -62,10 +62,9 @@
                                         <b>アラート</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <!-- <input name="alert" id="alert" class="form-control" type="text"> -->
                                             <select class="form-control" name="alert"id="alert">
-                                                <option name="alert"id="alert" value="0">なし</option>
-                                                <option name="alert" id="alert" value="1">あり</option>
+                                                <option value="0" selected> なし</option>
+                                                <option value="1">あり</option>
                                             </select>
                                         </div>
                                 </div>
@@ -74,7 +73,7 @@
                                         <b>備考</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="comment" id="comment" class="form-control" type="text">
+                                            <input name="comment" id="comment" class="form-control" type="text" value="なし">
                                         </div>
                                 </div>
                                 <div class="d-grid gap-2 col-2 mx-auto">

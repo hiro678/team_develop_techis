@@ -40,23 +40,31 @@ class ItemController extends Controller
      */
    public function store(Request $request)
    {
+      
+
        //バリデーションの記載
+      $this->validate($request, [
+         'name' => 'required',
+         'amount' => 'required',
+         'bought_at' => 'required',
+         'comment' => 'required',
+      ]);
+      
       $this->validate($request, Item::$rules);
       $image_name = $request->image_name;
-      if ($image_name) {
+      if (isset($image_name)) {
 
-      //一意のファイル名を自動生成しつつ保存し、かつファイルパス（$image_namePath）を生成
-      //ここでstore()メソッドを使っているが、これは画像データをstorageに保存している
+       //ファイルパス（$image_namePath）を生成ここでstore()メソッドを使っているが、これは画像データをstorageに保存している
       $image_namePath = $image_name->store('public/uploads');
 
       } else {
-         $image_name = "";
+         //画像ファイル未選択ならNOIMAGEを表示
+      $image_namePath = $image_name.'public/uploads/El9X5kPrYGtaYzpFG0q8bFvPyouAgvHkTvqL8ByI.png';
       }
 
       $item=new Item;
 
-       // $item->user_id=$request->input('user_id');
-      $item->user_id=1; //仮設定
+      $item->user_id=auth()->id();
       $item->name=$request->input('name');
       $item->amount=$request->input('amount');
       $item->bought_at=$request->input('bought_at');
@@ -66,8 +74,8 @@ class ItemController extends Controller
 
       $item->save();
 
-      //アイテム登録画面にリダイレクト
-         return redirect('item.create');
+      //アイテムホーム画面にリダイレクト
+         return redirect('home');
 
    }
    //アイテム編集画面
@@ -80,23 +88,31 @@ class ItemController extends Controller
    //アイテム編集機能
    public function update(Request $request, $id)
    {
+      $item=Item::find($id);
+
+      
       //バリデーションの記載
+      $this->validate($request, [
+         'name' => 'required',
+         'amount' => 'required',
+         'bought_at' => 'required',
+         'comment' => 'required',
+      ]);
+
       $this->validate($request, Item::$rules);
       $image_name = $request->image_name;
-      if ($image_name) {
+      if (isset($image_name)) {
 
-      //一意のファイル名を自動生成しつつ保存し、かつファイルパス（$image_namePath）を生成
-      //ここでstore()メソッドを使っているが、これは画像データをstorageに保存している
+      //ファイルパス（$image_namePath）を生成ここでstore()メソッドを使っているが、これは画像データをstorageに保存している
       $image_namePath = $image_name->store('public/uploads');
 
       } else {
-         $image_name = "";
+         $image_namePath = $item->image_name;
       }
 
       $item=Item::find($id);
 
-      // $item->user_id=$request->input('user_id');
-      $item->user_id=1; //仮設定
+      $item->user_id=auth()->id();
       $item->name=$request->input('name');
       $item->amount=$request->input('amount');
       $item->bought_at=$request->input('bought_at');
@@ -107,8 +123,8 @@ class ItemController extends Controller
       //DBに保存
       $item->save();
 
-      //処理が終わったらアイテム登録画面にリダイレクト
-      return redirect('item.create');
+      //処理が終わったらホーム画面にリダイレクト
+      return redirect('home');
    }
 
    //削除機能
@@ -118,7 +134,8 @@ class ItemController extends Controller
       $item=Item::find($id);
 
       $item->delete();
-      //処理が終わったらアイテム登録画面にリダイレクト
-      return redirect('item.create');
+      //処理が終わったらホーム画面にリダイレクト
+      return redirect('home');
    }
 }
+

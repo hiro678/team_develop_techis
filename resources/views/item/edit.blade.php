@@ -24,7 +24,7 @@
                                         <b>購入量</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="amount" id="amount" type="number" class="form-control" value="{{$item->amount}}" min="0" max="100" step="1">
+                                            <input name="amount" id="amount" class="form-control" type="number" value="{{$item->amount}}" min="0" max="100" step="1">
                                         </div>
                                 </div>
                                 <div class="row mb-3">
@@ -32,8 +32,7 @@
                                         <b>購入日</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <!-- <input name="bought_at" id="bought_at" type="yyyy/MM/dd H:mm:ss" class="form-control" name="date" value="{{$item->bought_at}}" > -->
-                                            <input type="date">
+                                            <input name="bought_at" id="bought_at" class="form-control" type="date" value="{{$item->bought_at->format('Y-m-d')}}" >
                                         </div>
                                 </div>
                                 <div class="row mb-3">
@@ -41,33 +40,31 @@
                                         <b>画像</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <input name="image_name" id="image_name" class="form-control" type="file" id="formFile" value="">
+                                            <input name="image_name" id="image_name" class="form-control" type="file" id="formFile">
                                         </div>
                                         <div class="item">
                                             <img class="d-block mx-auto" src="{{ Storage::url($item->image_name) }}" alt="" width="150px" height="150px">
                                         </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="boughat" class="col-md-4 col-form-label text-md-end">
+                                    <label for="alert" class="col-md-4 col-form-label text-md-end">
                                         <b>アラート</b>
                                     </label>
                                         <div class="col-md-6">
-                                            <!-- <input name="alert" id="alert" class="form-control" type="text" value="{{$item->alert}}"> -->
-                                            <select class="form-control" name="alert" id="alert" value="{{$item->alert}}">
-                                                <option value="0">なし</option>
-                                                <option value="1">あり</option>
+                                            <select class="form-control" name="alert" id="alert">
+                                                <option value="0"<?php if($item["alert"] =="0"){print"selected";}?>> なし</option>
+                                                <option value="1"<?php if($item["alert"] =="1"){print"selected";}?>> あり</option>
                                             </select>
                                         </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label for="comment" class="col-md-4 col-form-label text-md-end">
+                                    <label for="comment" class="col-md-4 col-form-label text-md-end" placeholder='備考'>
                                         <b>備考</b>
                                     </label>
                                         <div class="col-md-6">
                                             <input name="comment" id="comment" class="form-control" type="text" value="{{$item->comment}}">
                                         </div>
                                 </div>
-                                
                                 <div class="d-grid gap-2 col-2 mx-auto">
                                     <button class="btn btn-primary" type="submit">編集</button>
                                 </div>
