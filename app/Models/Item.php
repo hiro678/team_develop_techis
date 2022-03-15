@@ -9,6 +9,13 @@ class Item extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
-    protected $dates = ['bought_at'];
+    protected $fillable = ['user_id','name'];
+
+    public static $rules = [
+        'image_name'=> 'image|file',
+    ];
+
+    protected $dates = [
+        'bought_at',
+    ];
 }

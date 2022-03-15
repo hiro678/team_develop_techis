@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/item.create', [App\Http\Controllers\ItemController::class, 'create'])->name('item');
-Route::get('/item.edit', [App\Http\Controllers\ItemController::class, 'edit'])->name('item.edit');
+Route::get('/item.create', [App\Http\Controllers\ItemController::class, 'create'])->name('item.create');
+Route::get('/item.edit/{id}', [App\Http\Controllers\ItemController::class, 'edit'])->name('item.edit');
+Route::post('/item.store', [App\Http\Controllers\ItemController::class, 'store'])->name('item.store');
+Route::post('/item.update/{id}', [App\Http\Controllers\ItemController::class, 'update'])->name('item.update');
+Route::post('/item.delete/{id}', [App\Http\Controllers\ItemController::class, 'delete'])->name('item.delete');
 
 Auth::routes();
 
