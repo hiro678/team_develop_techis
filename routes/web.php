@@ -37,4 +37,5 @@ Route::get('/category.edit/{id}', [App\Http\Controllers\CategoryController::clas
 Route::post('/category.update', [App\Http\Controllers\CategoryController::class, 'update'])->name('cayegory.update');
 // カテゴリー削除
 Route::post('/category.delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('category.delete');
-
+// 持ち物検索
+Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
