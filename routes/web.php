@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,3 +41,9 @@ Route::post('/category.update', [App\Http\Controllers\CategoryController::class,
 Route::post('/category.delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('category.delete');
 // 持ち物検索
 Route::get('/search', [App\Http\Controllers\SearchController::class, 'search'])->name('search');
+// 会員情報の表示と編集
+Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/profile.edit/{id} ', [ProfileController::class, 'edit']);
+Route::post('/profile.update', [ProfileController::class, 'update']);
+// カテゴリー一覧表示
+Route::get('/category.list', [App\Http\Controllers\CategoryController::class, 'index'])->name('category.list');

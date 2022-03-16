@@ -8,6 +8,16 @@ use App\Models\Category;
 class CategoryController extends Controller
 {
     /**
+    * コンストラクタ
+    *
+    * @return coid
+    */
+    public function __construct()
+    {
+       $this->middleware('auth');
+    }
+ 
+    /**
      * カテゴリー追加画面を表示
      *
      * @return view
@@ -34,7 +44,7 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect('/home');
+        return redirect('/category.list');
     }
 
     /**
@@ -57,7 +67,7 @@ class CategoryController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request )
     {
         $inputs = $request->all();
 
@@ -81,6 +91,20 @@ class CategoryController extends Controller
     {
         Category::destroy($id);
         return redirect('/category.list');
+    }
+
+    /**
+     * カテゴリー一覧表示
+     * 
+     * @param Request $request
+     * @return Response
+     */
+    public function index(Request $request)
+    {
+        $category = Category::orderBy('created_at', 'asc')->get();
+        return view('category.list', [
+            'category' => $category,
+        ]);
     }
 
 
