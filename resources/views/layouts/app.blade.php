@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -63,11 +63,16 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
+                                                                       
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                            @if (session('flash_message'))
+                                <div class="max-w-7xl mx-auto  bg-blue-100 border border-blue-500 text-blue-700 px-4 py-3 rounded" role="alert">
+                                    <p class="text-sm">{{ session('flash_message') }}</p>
                                 </div>
+                            @endif
+                                 </div>                                
                             </li>
                         @endguest
                     </ul>
