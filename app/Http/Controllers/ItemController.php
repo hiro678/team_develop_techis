@@ -137,5 +137,39 @@ class ItemController extends Controller
       //処理が終わったらホーム画面にリダイレクト
       return redirect('home');
    }
+
+   /**
+     * アイテム一覧表示
+     * 
+     * @param Request $request
+     * @return Response
+     */
+   public function index(Request $request)
+    {
+      
+
+      // $query = Item::query();
+      // $query->where('category_id',$auth); // user_id が 1 のものだけを取得する
+      // $posts = $query->get();
+
+      // $item =Item::where('category',$data)->get();
+      // return view('item.list')->with(['data' => $data]);
+
+      // $auth=auth()->user()->id;
+      // $item=Item::where('category_id', $auth)->get();
+      // return view('item.list', compact('item'));
+
+      
+      $category_id=10;
+      $item = Item::where('category_id', $category_id)->get();
+      return view('item.list', [
+            'item' => $item,
+        ]);
+   //  }
+   // public function index($category_id)
+   // {
+   //    $item=Item::find($category_id);
+   //    return view('item.list',compact('item'));
+   // }
 }
 
