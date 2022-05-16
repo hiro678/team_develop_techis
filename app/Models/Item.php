@@ -9,6 +9,11 @@ class Item extends Model
 {
     use HasFactory;
 
+    // categoryテーブルに属する
+    public function category(){
+        return $this->belongsTo('App\Models\Category');
+    }
+
     protected $fillable = ['user_id','name'];
 
     public static $rules = [
@@ -18,4 +23,5 @@ class Item extends Model
     protected $dates = [
         'bought_at',
     ];
+    
 }

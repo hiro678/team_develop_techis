@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Models\Item;
 
+
 class ItemController extends Controller
 {
+   
    /**
     * コンストラクタ
     *
@@ -25,9 +27,11 @@ class ItemController extends Controller
      * @return Response
      */
    
-   public function create()
+   public function create(Request $request,$category_id)
    {
-      return view('item.create');
+      return view('item.create',[
+         'category_id' => $category_id,
+         ]);
    }
 
    /**
@@ -65,6 +69,7 @@ class ItemController extends Controller
       $item=new Item;
 
       $item->user_id=auth()->id();
+      $item->category_id=$request->input('category_id');
       $item->name=$request->input('name');
       $item->amount=$request->input('amount');
       $item->bought_at=$request->input('bought_at');
@@ -72,10 +77,11 @@ class ItemController extends Controller
       $item->alert=$request->input('alert');
       $item->comment=$request->input('comment');
 
+      // DBに保存
       $item->save();
 
-      //アイテムホーム画面にリダイレクト
-         return redirect('home');
+      //カテゴリー一覧画面にリダイレクト
+         return redirect('category.list');
 
    }
    //アイテム編集画面
@@ -113,6 +119,7 @@ class ItemController extends Controller
       $item=Item::find($id);
 
       $item->user_id=auth()->id();
+      $item->category_id=$request->input('category_id');
       $item->name=$request->input('name');
       $item->amount=$request->input('amount');
       $item->bought_at=$request->input('bought_at');
@@ -123,8 +130,8 @@ class ItemController extends Controller
       //DBに保存
       $item->save();
 
-      //処理が終わったらホーム画面にリダイレクト
-      return redirect('home');
+      //処理が終わったらカテゴリー一覧画面にリダイレクト
+      return redirect('category.list');
    }
 
    //削除機能
@@ -134,8 +141,21 @@ class ItemController extends Controller
       $item=Item::find($id);
 
       $item->delete();
-      //処理が終わったらホーム画面にリダイレクト
-      return redirect('home');
+      //処理が終わったらカテゴリー一覧画面にリダイレクト
+      return redirect('category.list');
    }
-}
 
+   /**
+     * アイテム一覧表示
+     * 
+     * @param Request $request
+     * @return Response
+     */
+   public function index(Request $request,$id)
+    {
+      $item = Item::where('category_id',$id)->get();
+      return view('item.list', [
+            'item' => $item,
+        ]);
+    }
+}

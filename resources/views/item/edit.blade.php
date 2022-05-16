@@ -67,6 +67,7 @@
                                 </div>
                                 <div class="d-grid gap-2 col-2 mx-auto">
                                     <button class="btn btn-primary" type="submit">編集</button>
+                                    <input class="form-control" type="hidden" name="category_id" value="{{$item->category_id}}">
                                 </div>
                         </form>
                         <br>
@@ -76,6 +77,11 @@
                                 <button class="btn btn-secondary" type="submit">削除</button>
                             </div>
                         </form>
+                        <div class="row m-3">
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ホームへ戻る</a>
+                                </div>
+                        </div>
                     </div>
             </div>
         </div>
