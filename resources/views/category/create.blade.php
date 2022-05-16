@@ -21,6 +21,11 @@
                             <button class="btn btn-primary" type="submit">追加</button>
                         </div>
                     </div>
+                    <div class="row m-3">
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ホームへ戻る</a>
+                        </div>
+                    </div>
                     </form>
                 </div>
             </div>

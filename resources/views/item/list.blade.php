@@ -1,54 +1,61 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-3">
             @include('layouts.sidemenu')
         </div>
 
-        <!-- カテゴリ一覧表示 -->
-        @if (count($category) > 0)
+        <!-- アイテム一覧表示 -->
+        @if (count($item) > 0)
 
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-header">カテゴリー一覧</h3>
+                    <h3 class="card-header">アイテム一覧</h3>
                     <table class="table table-striped table-hover">
                         <!-- テーブルヘッダ -->
                         <thead class="table-info">
                             <tr>
                                 <th>管理番号</th>
-                                <th>カテゴリー名</th>
-                                <th>&nbsp;</th>
-                                <th>&nbsp;</th>
+                                <th>名称</th>
+                                <th>個数</th>
+                                <th>購入日</th>
+                                <th>備考</th>
                                 <th>&nbsp;</th>
                             </tr>
                         </thead>
 
                         <!-- テーブル本体 -->
                         <tbody>
-                            @foreach ($category as $category)
+                            @foreach ($item as $item)
                             <tr>
-                                <!-- カテゴリー名 -->
+                                <!-- アイテム名 -->
                                 <th scope="row">
-                                    <div>{{$category->id}}</div>
+                                    <div>{{$item->id}}</div>
                                 </th>
                                 <td class="table-text">
-                                    <div>{{ $category->name }}</div>
+                                    <div>{{ $item->name }}</div>
+                                    <div class="item">
+                                            <img class="d-block mx-auto" src="{{ Storage::url($item->image_name) }}" alt="" width="150px" height="150px">
+                                        </div>
                                 </td>
+                                <!-- 個数 -->
                                 <td>
-                                    <!-- 登録画面へ遷移 -->
-                                    <a href="{{ route('item.create',['category_id' => $category->id]) }}"><button class="user-btn">登録</button></a>
+                                    <div>{{ $item->amount }}</div>
                                 </td>
+                                <!-- 購入日 -->
                                 <td>
-                                    <!-- 一覧ページへ遷移 -->
-                                    <a href="{{ route('item.list', ['id' => $category->id]) }}"><button class="user-btn" type="submit">一覧</button></a>
+                                    <div>{{ $item->bought_at->format('Y-m-d') }}</div>
+                                </td>
+                                <!-- 備考 -->
+                                <td>
+                                    <div>{{ $item->comment }}</div>
                                 </td>
                                 <td>
                                     <!--編集ページへ遷移する -->
-                                    <a href="{{ route('category.edit', ['id' => $category->id]) }}"><button class="user-btn">編集</button></a>
+                                    <a href="{{ route('item.edit', ['id' => $item->id]) }}"><button class="" type="submit">編集</button></a>
                                 </td>
                             </tr>
                             @endforeach

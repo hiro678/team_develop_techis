@@ -9,7 +9,7 @@
                 
                 <div class="card-body">
                     <form action="{{ url('category.update') }}" method="post">
-                    @csrf 
+                    @csrf
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end"><b>カテゴリー名</b></label>
                             <div class="col-md-6">
@@ -34,6 +34,11 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="row m-3">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ホームへ戻る</a>
+                            </div>
+                        </div>
                 </div>
             <div>
         </div>

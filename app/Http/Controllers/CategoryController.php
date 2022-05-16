@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -35,14 +36,22 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+ 
         $this->validate($request, [
             'name' => 'required',
-        ]);
+         ]);
 
-        Category::create([
-            'id' => 0,
-            'name' => $request->name,
-        ]);
+        // Category::create([
+        //     'id' => 0,
+        //     'name' => $request->name,
+        // ]);
+        $category=new Category;
+
+        $category->user_id=auth()->id();
+        $category->name=$request->input('name');
+
+        // DBに保存
+        $category->save();
 
         return redirect('/category.list');
     }
@@ -101,11 +110,10 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $category = Category::orderBy('created_at', 'asc')->get();
+        $category = Category::where('user_id', Auth::id())->get();
         return view('category.list', [
             'category' => $category,
         ]);
     }
-
 
 }

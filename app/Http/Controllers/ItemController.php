@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Models\Item;
 
+
 class ItemController extends Controller
 {
+   
    /**
     * コンストラクタ
     *
@@ -25,9 +27,11 @@ class ItemController extends Controller
      * @return Response
      */
    
-   public function create()
+   public function create(Request $request,$category_id)
    {
-      return view('item.create');
+      return view('item.create',[
+         'category_id' => $category_id,
+         ]);
    }
 
    /**
@@ -65,6 +69,7 @@ class ItemController extends Controller
       $item=new Item;
 
       $item->user_id=auth()->id();
+      $item->category_id=$request->input('category_id');
       $item->name=$request->input('name');
       $item->amount=$request->input('amount');
       $item->bought_at=$request->input('bought_at');
@@ -72,10 +77,11 @@ class ItemController extends Controller
       $item->alert=$request->input('alert');
       $item->comment=$request->input('comment');
 
+      // DBに保存
       $item->save();
 
-      //アイテムホーム画面にリダイレクト
-         return redirect('home');
+      //カテゴリー一覧画面にリダイレクト
+         return redirect('category.list');
 
    }
    //アイテム編集画面
@@ -113,6 +119,7 @@ class ItemController extends Controller
       $item=Item::find($id);
 
       $item->user_id=auth()->id();
+      $item->category_id=$request->input('category_id');
       $item->name=$request->input('name');
       $item->amount=$request->input('amount');
       $item->bought_at=$request->input('bought_at');
@@ -123,8 +130,8 @@ class ItemController extends Controller
       //DBに保存
       $item->save();
 
-      //処理が終わったらホーム画面にリダイレクト
-      return redirect('home');
+      //処理が終わったらカテゴリー一覧画面にリダイレクト
+      return redirect('category.list');
    }
 
    //削除機能
@@ -134,8 +141,8 @@ class ItemController extends Controller
       $item=Item::find($id);
 
       $item->delete();
-      //処理が終わったらホーム画面にリダイレクト
-      return redirect('home');
+      //処理が終わったらカテゴリー一覧画面にリダイレクト
+      return redirect('category.list');
    }
 
    /**
@@ -144,32 +151,11 @@ class ItemController extends Controller
      * @param Request $request
      * @return Response
      */
-   public function index(Request $request)
+   public function index(Request $request,$id)
     {
-      
-
-      // $query = Item::query();
-      // $query->where('category_id',$auth); // user_id が 1 のものだけを取得する
-      // $posts = $query->get();
-
-      // $item =Item::where('category',$data)->get();
-      // return view('item.list')->with(['data' => $data]);
-
-      // $auth=auth()->user()->id;
-      // $item=Item::where('category_id', $auth)->get();
-      // return view('item.list', compact('item'));
-
-      
-      $category_id=10;
-      $item = Item::where('category_id', $category_id)->get();
+      $item = Item::where('category_id',$id)->get();
       return view('item.list', [
             'item' => $item,
         ]);
-   //  }
-   // public function index($category_id)
-   // {
-   //    $item=Item::find($category_id);
-   //    return view('item.list',compact('item'));
-   // }
+    }
 }
-

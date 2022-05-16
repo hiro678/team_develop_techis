@@ -5,7 +5,7 @@
 @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                        <!-- <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a> -->
                     @else
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
@@ -78,6 +78,12 @@
                                 </div>
                                 <div class="d-grid gap-2 col-2 mx-auto">
                                     <input class="btn btn-primary" type="submit" value="登録">
+                                    <input class="form-control" type="hidden" name="category_id" value="{{$category_id}}">
+                                </div>
+                                <div class="row m-3">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">ホームへ戻る</a>
+                                    </div>
                                 </div>
                         </form>
                     </div>

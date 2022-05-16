@@ -10,4 +10,9 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = ['id', 'name'];
+
+    // itemテーブルに属する
+    public function items(){
+        return $this->hasMany('App\Models\Item');
+    }
 }
